@@ -1,6 +1,6 @@
 const got = require('got');
-// const apiUrl = 'INSERT ADMIRAL ENDPOINT HERE';
-// const propId = ['AN ARRAY OF YOUR PROPERTYIDS, PASSED AS STRINGS'];
+const apiUrl = 'INSERT ADMIRAL ENDPOINT HERE';
+const propId = ['AN ARRAY OF YOUR PROPERTYIDS, PASSED AS STRINGS'];
 function retrieveBootstrap(pId) {
     let fullUrl = apiUrl + pId + '/bootstrap';
     got(fullUrl, {json :true}).then(response => {
