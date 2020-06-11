@@ -1,18 +1,22 @@
-const got = require('got');
+const https = require('https');
 const apiUrl = 'INSERT ADMIRAL ENDPOINT HERE';
 const propId = ['AN ARRAY OF YOUR PROPERTYIDS, PASSED AS STRINGS'];
-function retrieveBootstrap(pId) {
+function getBootstrap(pId) {
     let fullUrl = apiUrl + pId + '/bootstrap';
-    got(fullUrl, {json :true}).then(response => {
-        console.log(response.body.url);
-        console.log(response.body.explanation);
-    }).catch(error => {
-        let x = error.response.body;
-        let y = '<script type="text/javascript">';
-        let z = '</script>'
-        let a = y + x + z;
-        console.log(a);
-        console.log("============================");
+    https.get(fullUrl, (resp)=> {
+        let data = '';
+        resp.on('data', (chunk) => {
+            data += chunk;
+        });
+        resp.on('end', ()=> {
+            let x = '<script type="text/javascript">';
+            let y = "</script>"
+            let z = x + data + y;
+            console.log(z);
+            console.log("===================================");
+        });
+    }).on("error", (err) => {
+        console.log("Error: " + err.message);
     })
 }
-propId.forEach(retrieveBootstrap);
+propId.forEach(getBootstrap);
