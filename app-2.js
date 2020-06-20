@@ -3,6 +3,8 @@ const fs = require('fs');
 const csvFilePath='book.csv';
 const csv=require('csvtojson')
 const apiUrl = 'INSERT ADMIRAL ENDPOINT HERE';
+const ObjectsToCsv = require('objects-to-csv');
+let u = new Array;
 //Process csv
 function processCSV() {
     csv().fromFile(csvFilePath).then((x)=>{
@@ -21,6 +23,13 @@ function processCSV() {
                     let x = '<script type="text/javascript">';
                     let y = "</script>"
                     let z = t + x + data + y;
+                    let n = x + data + y;
+                    let m = {
+                        propertyID: pid,
+                        domain: d,
+                        tag: n
+                    }
+                    u.push(m)
                     fs.writeFile(d + "_admiral_tag.txt",z,function(err) {
                         if (err) console.log(err);
                     })
@@ -31,4 +40,10 @@ function processCSV() {
         }
     })
 }
+function createCSV() {
+    const csv = new ObjectsToCsv(u);
+    csv.toDisk('props.csv');
+    console.log("Finished");
+}
 processCSV();
+setTimeout(createCSV, 2000);
