@@ -41,8 +41,8 @@ function processCSV() {
     })
 }
 function createCSV() {
-    const csv = new ObjectsToCsv(u);
-    csv.toDisk('props.csv');
+    let h = new ObjectsToCsv(u);
+    h.toDisk('props.csv');
     console.log("Finished");
 }
 processCSV();
